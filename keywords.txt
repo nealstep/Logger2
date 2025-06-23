@@ -1,5 +1,6 @@
 Logger	KEYWORD1
-addSerial	KEYWORD2
+setPrint	KEYWORD2
+setMQTT		KEYWORD2
 setLevel	KEYWORD2
 log	KEYWORD2
 debug	KEYWORD2

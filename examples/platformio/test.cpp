@@ -5,16 +5,18 @@
 #else
 #error "Not supported"
 #endif  // ESP8266
+#include <PubSubClient.h>
 
-#include "Logger.h"
+#include "Logger2.h"
 
 static const char *ssid = MY_SSID;
 static const char *passwd = MY_PASSWD;
 static const uint32_t baud = MY_BAUD;
 
-static uint16_t delay_medium = 250;
+static uint16_t delayMedium = 250;
+static uint16_t delayLong = 1000;
 
-Logger logger;
+Logger2 logger;
 
 uint32_t currentMillis;
 uint32_t previousMillis = 0;
@@ -31,7 +33,7 @@ void wifi_setup(void) {
     logger.log(logger.INFO, "Connecting to WiFi ..");
     while (WiFi.status() != WL_CONNECTED) {
         logger.log(logger.DEBUG, "Waiting to connect");
-        delay(delay_medium);
+        delay(delayMedium);
     }
     localIP = WiFi.localIP();
     logger.info("Local IP", localIP[0], localIP[1], localIP[2], localIP[3]);
