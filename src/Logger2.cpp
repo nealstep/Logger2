@@ -18,7 +18,7 @@ void Logger2::log(const char *msg) {
         print->println(msg);
     }
     if (useMQTT) {
-        ;  // Not implemented
+        client->publish(topic, msg);
     }
 }
 void Logger2::log(LogLevel level, const char *msg) {

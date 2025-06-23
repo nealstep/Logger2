@@ -1,3 +1,3 @@
 # Logger
-Simple logging over Serial and MQTT
 
+Simple logging over Serial and MQTT
