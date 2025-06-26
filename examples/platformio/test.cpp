@@ -2,6 +2,8 @@
 
 #if defined(ESP8266)
 #include <ESP8266WiFi.h>
+#elif defined(ESP32)
+#include <WiFi.h>
 #else
 #error "Not supported"
 #endif  // ESP8266
@@ -10,6 +12,8 @@
 #include "Logger2.h"
 
 #define ID_SIZE 16
+
+#define MQTTID "MeToo"
 
 // passed constants
 static const char *ssid = MY_SSID;
@@ -70,13 +74,14 @@ void mqttCheck() {
 
 void setup() {
     Serial.begin(baud);
+    delay(delayLong*5);
     logger.setPrint(Serial);
     logger.setLevel(logger.DEBUG);
     logger.info("Starting");
     pinMode(LED_BUILTIN, OUTPUT);
     mqttClient.setServer(mqttHost, mqttPort);
     wifi_setup();
-    strncpy(mqttID, WiFi.hostname().c_str(), ID_SIZE - 2);
+    strncpy(mqttID, WiFi.getHostname(), ID_SIZE - 2);
     mqttID[ID_SIZE - 1] = '\0';
     mqttCheck();
     logger.debug("Setup done");

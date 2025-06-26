@@ -23,7 +23,10 @@ void Logger2::log(const char *msg) {
 }
 void Logger2::log(LogLevel level, const char *msg) {
     if (level < logLevel) return;
-    log(msg);
+    char buffer[LOGGER_BUFFER_SIZE];
+    char prefix = prefixes[static_cast<int>(level)];
+    sprintf(buffer, "%c %s", prefix, msg);
+    log(buffer);
 }
 void Logger2::log(LogLevel level, const char *name, const char *value) {
     if (level < logLevel) return;
@@ -69,7 +72,7 @@ void Logger2::log(LogLevel level, const char *name, double value,
 void Logger2::log(LogLevel level, const char *name, uint8_t o1, uint8_t o2,
                  uint8_t o3, uint8_t o4) {
     if (level < logLevel) return;
-    char *buffer = new char[LOGGER_BUFFER_SIZE];
+    char buffer[LOGGER_BUFFER_SIZE];
     char prefix = prefixes[static_cast<int>(level)];
     sprintf(buffer, "%c %s: %d.%d.%d.%d", prefix, name, o1, o2, o3, o4);
     log(buffer);
